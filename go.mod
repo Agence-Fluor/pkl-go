@@ -1,4 +1,4 @@
-module github.com/apple/pkl-go
+module github.com/Agence-Fluor/pkl-go
 
 go 1.22.1
 

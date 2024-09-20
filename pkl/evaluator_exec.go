@@ -61,8 +61,16 @@ func NewProjectEvaluatorWithCommand(ctx context.Context, projectDir string, pklC
 	}
 	newOpts := []func(options *EvaluatorOptions){
 		WithProject(project),
+		func(opts *EvaluatorOptions) {
+			PreconfiguredOptions(opts)
+			reader := &cliCommandReader{}
+			WithResourceReader(reader)(opts)
+			opts.OutputFormat = "json"
+		},
 	}
+
 	newOpts = append(newOpts, opts...)
+
 	ev, err := manager.NewEvaluator(ctx, newOpts...)
 	if err != nil {
 		return nil, err
